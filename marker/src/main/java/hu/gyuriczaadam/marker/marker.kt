@@ -1,9 +1,12 @@
 package hu.gyuriczaadam.marker
 
+
+@Retention(AnnotationRetention.SOURCE)
 @Target(
     AnnotationTarget.FILE,
     AnnotationTarget.CLASS,
     AnnotationTarget.FUNCTION
 )
-@Retention(AnnotationRetention.SOURCE)
-annotation class marker
+annotation class marker(
+    val packageName:String
+)

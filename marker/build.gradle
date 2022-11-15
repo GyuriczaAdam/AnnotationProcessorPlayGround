@@ -2,11 +2,25 @@ plugins {
     id 'java-library'
     id 'org.jetbrains.kotlin.jvm'
     id 'kotlin-kapt'
+    id 'maven-publish'
 }
-
+project.description = 'Testtag generator'
+project.group = 'hu.gyuriczaadam.AnnotationProcessorPlayground'
+project.version = '1.0.0-SNAPSHOT'
 java {
     sourceCompatibility = JavaVersion.VERSION_1_7
     targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+publishing {
+    publications {
+        versioningPlugin(MavenPublication) {
+            from components.java
+            groupId project.group
+            artifactId project.name
+            version project.version
+        }
+    }
 }
 dependencies {
     implementation "com.squareup:kotlinpoet:1.3.0"

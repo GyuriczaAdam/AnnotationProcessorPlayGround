@@ -1,12 +1,19 @@
 package hu.gyuriczaadam.marker
 
 import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.CodeBlock
+import com.squareup.kotlinpoet.FileSpec
+import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import javax.annotation.processing.AbstractProcessor
 import javax.annotation.processing.RoundEnvironment
 import javax.annotation.processing.SupportedSourceVersion
 import javax.lang.model.SourceVersion
+import javax.lang.model.element.Element
+import javax.lang.model.element.ExecutableElement
 import javax.lang.model.element.TypeElement
 
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
@@ -49,12 +56,15 @@ class Processor : AbstractProcessor() {
         val kaptKotlinGeneratedDir =
             processingEnv.options[KAPT_KOTLIN_GENERATED_OPTION_NAME] ?: return false
         val testTags = tags
-
-        val myClass = ClassName("hu.gyuriczaadam.annotationprocessplaygorund.tags", "TestTags")
+        var argumentName =""
+        roundEnv.getElementsAnnotatedWith(marker::class.java).forEach {
+           argumentName = it.getAnnotation(marker::class.java).packageName
+        }
+        val myClass = ClassName(argumentName, "TestTags")
         val classBuilder = TypeSpec.classBuilder(myClass).addModifiers(KModifier.SEALED)
         val tagBuilderRepostiory:TestTagGeneratorReporistory = TestTagGeneratorRepositoryImpl()
         tagBuilderRepostiory.testTagFileBuilder(
-            "hu.gyuriczaadam.annotationprocessplaygorund.tags",
+            argumentName,
             "TestTags",
             classBuilder,
             testTags,
@@ -65,4 +75,12 @@ class Processor : AbstractProcessor() {
     companion object {
         const val KAPT_KOTLIN_GENERATED_OPTION_NAME = "kapt.kotlin.generated"
     }
+    private fun generateProvidesFactories(roundEnv: RoundEnvironment) {
+
+
+
+
+
+    }
+
 }

@@ -14,7 +14,8 @@ import hu.gyuriczaadam.annotationprocessorplaygorund.ui.theme.AnnotationProcesso
 import hu.gyuriczaadam.annotationprocessplaygorund.tags.TestTags
 import hu.gyuriczaadam.marker.marker
 
-@marker
+
+@marker("hu.gyuriczaadam.annotationprocessplaygorund.tags")
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +33,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@marker
+@marker("hu.gyuriczaadam.annotationprocessplaygorund.tags")
 @Composable
 fun Greeting(name: String) {
     Text(text = "Hello $name!")
